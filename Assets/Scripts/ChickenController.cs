@@ -36,7 +36,6 @@ public class ChickenController : MonoBehaviour
         {
             collisionWithMud = true;
         }
-
     }
 
     private void OnCollisionExit(Collision col)

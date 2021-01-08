@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimeBarScript : MonoBehaviour
 {
     Image timeBar;
-    [SerializeField] private float maxTime = 5f;
+    private float maxTime;
     private float timeLeft;
     [SerializeField] private GameObject timesUpText;
 
@@ -14,6 +14,8 @@ public class TimeBarScript : MonoBehaviour
     {
         timesUpText.SetActive(false);
         timeBar = GetComponent<Image>();
+
+        maxTime = LevelManager.instance.levelTime;
         timeLeft = maxTime;
     }
 
@@ -28,6 +30,7 @@ public class TimeBarScript : MonoBehaviour
         {
             timesUpText.SetActive(true);
             GameManager.isGameEnded = true;
+            timeLeft = 0;
             GameManager.instance.Invoke("Failed", 1.5f);
         }
     }

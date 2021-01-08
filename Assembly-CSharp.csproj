@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\ChickenController.cs" />
     <Compile Include="Assets\Scripts\Failed\Failed.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Play.cs" />
     <Compile Include="Assets\Scripts\TimeBarScript.cs" />
     <Compile Include="Assets\Scripts\Won\Won.cs" />

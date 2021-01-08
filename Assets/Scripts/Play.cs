@@ -13,18 +13,19 @@ public class Play : MonoBehaviour
     void Start()
     {
         playButton.onClick.AddListener(PlayGame);
+
+        Debug.Log(PlayerPrefs.GetInt("level"));
+        if (PlayerPrefs.GetInt("level") == 5)
+            PlayerPrefs.SetInt("level", 0);
+        Debug.Log(PlayerPrefs.GetInt("level"));
     }
 
     public void PlayGame()
     {
-        GameManager.isGameStarted = true;
         
         level = PlayerPrefs.GetInt("level");
 
-        if(level == 0)
-            SceneManager.LoadScene(3);
-        else
-            SceneManager.LoadScene(level);
+        SceneManager.LoadScene(level);
 
     }
 }

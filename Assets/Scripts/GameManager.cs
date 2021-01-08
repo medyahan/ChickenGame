@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text levelText;
     [SerializeField] private GameObject chicken;
     ChickenController chickenControl;
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button menuButton;
     [SerializeField] private Button retryButton;
 
+    [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject gamePanel;
     [SerializeField] private GameObject pausePanel;
 
@@ -28,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     public int levelNo;
 
+    [SerializeField] private GameObject timeBar;
+    TimeBarScript timeBarScript;
+
     private void Awake()
     {
         if (instance == null)
@@ -35,21 +40,40 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        PlayerPrefs.SetInt("level", 3);
+        //PlayerPrefs.SetInt("level", 3);
         levelNo = PlayerPrefs.GetInt("level");
 
+        startPanel.SetActive(true);
         gamePanel.SetActive(true);
+
         chickenControl = chicken.GetComponent<ChickenController>();
+        timeBarScript = timeBar.GetComponent<TimeBarScript>();
 
         pauseButton.onClick.AddListener(Pause);
         resumeButton.onClick.AddListener(Resume);
         menuButton.onClick.AddListener(Menu);
         retryButton.onClick.AddListener(Retry);
+
+        timeBarScript.enabled = false;
     }
 
     void Update()
     {
         scoreText.text = "score: " + chickenControl.totalScore;
+        levelText.text = "level " + (levelNo + 1);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            timeBarScript.enabled = true;
+            startPanel.SetActive(false);
+            Invoke("StartGame", 0.5f);
+
+        }
+    }
+
+    public void StartGame()
+    {
+        isGameStarted = true;
     }
 
     public void Pause()
@@ -77,6 +101,7 @@ public class GameManager : MonoBehaviour
     public void Menu()
     {
         Time.timeScale = 1f;
+        SceneManager.LoadScene("Play");
     }
 
     public void Failed()
@@ -85,11 +110,14 @@ public class GameManager : MonoBehaviour
 
         isGameEnded = false;
 
+        timeBarScript.enabled = true;
         SceneManager.LoadScene("Failed");
     }
 
     public void Won()
     {
+        isGameEnded = false;
+        timeBarScript.enabled = true;
         trueIcon.SetActive(false);
         SceneManager.LoadScene("Won");
     }
