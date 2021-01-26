@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class Failed : MonoBehaviour
 {
     [SerializeField] private Button retryButton;
+    [SerializeField] private Button menuButton;
 
     private int levelNo;
 
     private void Start()
     {
         retryButton.onClick.AddListener(Retry);
+        menuButton.onClick.AddListener(Menu);
     }
 
     public void Retry()
@@ -22,5 +24,9 @@ public class Failed : MonoBehaviour
         levelNo = PlayerPrefs.GetInt("level");
         SceneManager.LoadScene(levelNo);
     }
-
+    public void Menu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Play");
+    }
 }

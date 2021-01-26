@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public static bool isGameEnded = false;
 
     public int levelNo;
+    public int totalScore;
+    public int score;
+    
 
     [SerializeField] private GameObject timeBar;
     TimeBarScript timeBarScript;
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         //PlayerPrefs.SetInt("level", 3);
         levelNo = PlayerPrefs.GetInt("level");
+        totalScore = PlayerPrefs.GetInt("totalscore");
 
         startPanel.SetActive(true);
         gamePanel.SetActive(true);
@@ -59,7 +63,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "score: " + chickenControl.totalScore;
+        score = chickenControl.totalScore;
+        scoreText.text = "score: " + score;
+
         levelText.text = "level " + (levelNo + 1);
 
         if (Input.GetMouseButtonDown(0))
@@ -117,8 +123,11 @@ public class GameManager : MonoBehaviour
     public void Won()
     {
         isGameEnded = false;
+        chickenControl.timeScoreObj.SetActive(false);
         timeBarScript.enabled = true;
         trueIcon.SetActive(false);
         SceneManager.LoadScene("Won");
     }
+
+    
 }

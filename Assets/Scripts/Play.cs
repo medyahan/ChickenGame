@@ -13,6 +13,7 @@ public class Play : MonoBehaviour
     void Start()
     {
         playButton.onClick.AddListener(PlayGame);
+        //PlayerPrefs.SetInt("totalscore", 0);
 
         Debug.Log(PlayerPrefs.GetInt("level"));
         if (PlayerPrefs.GetInt("level") == 5)

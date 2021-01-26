@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     private int levelNo;
     public int levelTime;
 
+
     private void Awake()
     {
         if (instance == null)

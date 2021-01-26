@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class TimeBarScript : MonoBehaviour
 {
     Image timeBar;
-    private float maxTime;
-    private float timeLeft;
+    public float maxTime;
+    public float timeLeft;
     [SerializeField] private GameObject timesUpText;
 
     void Start()
